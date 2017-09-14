@@ -1,6 +1,11 @@
 # Ближайшие бары
 
-[FIXME. Здесь будет описание проекта]
+скрипт использует открытые данные с сайта https://data.mos.ru/opendata/7710881420-bary для поиска:
+ 1. самого большого бара 
+ 2. самого маленького бара
+ 3. самого ближайшего к пользователю бара 
+ 
+ Последние данные можно скачать по ссылке https://op.mos.ru/EHDWSREST/catalog/export/get?id=229029
 
 # Как запустить
 
@@ -10,10 +15,20 @@
 
 ```#!bash
 
-$ python bars.py # possibly requires call of python3 executive instead of just python
-# FIXME вывести пример ответа скрипта
+$ python bars.py <file.json> <user_longitude> <user_latitude>
 
 ```
+Пример вывода программы:
+
+```#!bash
+
+$ python bars.py bars.json 37.5808338790396230 55.7591490448676910
+The biggest Bar:  Спорт бар «Красная машина»
+The smallest Bar:  Сушистор
+The closest Bar:  Бар «Крафт»
+
+```
+
 
 Запуск на Windows происходит аналогично.
 
