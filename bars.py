@@ -1,21 +1,13 @@
 import json
 import sys
-
 from geohelper import distance
-
-
-def check_json_data(input_json):
-    try:
-        return json.loads(input_json)
-    except ValueError:
-        print('JSON syntax error')
-        raise SystemExit
 
 
 def load_data(filepath):
     with open(filepath, "r", encoding='utf-8') as input_file:
-        raw_data = check_json_data(input_file.read())
-    return raw_data
+        raw_data = input_file.read()
+        raw_json_data = json.loads(raw_data)
+    return raw_json_data
 
 
 def get_biggest_bar(json_data):
@@ -44,8 +36,14 @@ if __name__ == '__main__':
         filepath = sys.argv[1]
         longitude = float(sys.argv[2])
         latitude = float(sys.argv[3])
-        print('The biggest Bar: ', get_biggest_bar(load_data(filepath)))
-        print('The smallest Bar: ', get_smallest_bar(load_data(filepath)))
-        print('The closest Bar: ', get_closest_bar(load_data(filepath), longitude, latitude))
+        try:
+            json_data = load_data(filepath)
+        except ValueError as e:
+            print(e)
+            raise SystemExit
+        else:
+            print('The biggest Bar name: ', get_biggest_bar(json_data))
+            print('The smallest Bar name: ', get_smallest_bar(json_data))
+            print('The closest Bar name: ', get_closest_bar(json_data, longitude, latitude))
     else:
         print(' Not all parameters provided. \n Example: python bars.py <file.json> <user_longitude> <user_latitude>')
